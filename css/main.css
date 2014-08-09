@@ -1,0 +1,94 @@
+body {
+  background-color: #FFF;
+  font-family: sans-serif;
+  color: #0b9444;
+}
+
+div.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80px;
+  background-color: #603813;
+  width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 40px;
+  border-bottom-color: #bbb098;
+}
+
+div.header p{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #bbb098;
+}
+
+div.main {
+  display: table;
+  height: 100%;
+  width:100%;
+}
+
+div.instructions{
+  position: fixed;
+  top:110px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+div.instructions p{
+  display:inline;
+  float: left;
+}
+
+div.instructions input{
+  float: left;
+  display: inline;
+  margin-top: 13px;
+  margin-left: 7px;
+}
+
+div.mainContainer{
+  display: table-cell;
+  vertical-align: middle;
+  margin: auto;
+  text-align: center;
+}
+
+div.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 80px;
+  background-color: #ffc103;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 40px;
+  border-top-color: #f5d9b8;
+}
+
+div.footer p{
+  margin-right: 10px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+div.footer a{
+  color: #862a9a;
+  text-decoration: none;
+}
+
+div.main h1{
+  font-size: 80px;
+  font-weight: bold;
+}
+
+span.bold{
+  font-weight: bold;
+}
+
+#error-text{
+  display: none;
+  color: #930a00;
+}

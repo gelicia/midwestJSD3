@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>MidwestJS Example</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type = "text/javascript" src="js/key.js"></script>
+	<script type = "text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/lib/d3.min.js"></script>
+	<script type="text/javascript" src="js/lib/bluebird.js"></script>
+</head>
+<body>
+	<div class="header"><p>MidwestJS Example</p></div>
+	<div class="instructions">
+		<p>Enter in up to 3 Marvel character names:</p>
+		<input type="text" id="name0" onblur="processNames()"></input>
+		<input type="text" id="name1" onblur="processNames()"></input>
+		<input type="text" id="name2" onblur="processNames()"></input>
+		<p id="error-text"></p>
+	</div> 
+	<div class="main"> 
+		<div class="mainContainer">
+		</div>
+	</div>
+	<div class="footer"></div>
+</body>
+</html>
