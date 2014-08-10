@@ -30,10 +30,12 @@ function processNames(){
 					});
 
 					var heroCircles = svg.selectAll("circle").data(heroesData, function(d){return d.id;});
+					var heroText = svg.selectAll("text.heroName").data(heroesData, function(d){return d.id;});
 					var colorScale = d3.scale.category10();
 
 					//enter
 					heroCircles.enter().append("circle").attr({opacity: 0});
+					heroText.enter().append("text").attr({opacity: 0});
 
 					//update
 					heroCircles.transition().duration(500).attr({
@@ -47,8 +49,18 @@ function processNames(){
 						fill: function(d,i){return colorScale(i);}
 					});
 
+					heroText.transition().duration(500).attr({
+						class: "heroName",
+						opacity: 0.75,
+						'text-anchor': 'middle',
+						x: function(d,i){return (i == 2 ? circleDisplay.radius/2 : 0) +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+						y: function(d,i){return (circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
+						fill: 'black'//function(d,i){return colorScale(i);}
+					}).text(function(d){ return d.name + "(" + d.comics.available + ")";});
+
 					//exit
 					heroCircles.exit().transition().duration(500).attr({'opacity':0}).remove();
+					heroText.exit().transition().duration(500).attr({'opacity':0}).remove();
 				});
 			}
 		}).catch(function(){
