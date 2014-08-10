@@ -25,16 +25,15 @@ div.header p{
 }
 
 div.main {
-  display: table;
   height: 100%;
   width:100%;
-}
-
-div.instructions{
   position: fixed;
   top:110px;
   font-size: 13px;
   font-weight: bold;
+  vertical-align: middle;
+  margin: auto;
+  text-align: center;
 }
 
 div.instructions p{
@@ -49,11 +48,8 @@ div.instructions input{
   margin-left: 7px;
 }
 
-div.mainContainer{
-  display: table-cell;
-  vertical-align: middle;
-  margin: auto;
-  text-align: center;
+div.content{
+  clear: both;
 }
 
 div.footer {
@@ -96,4 +92,6 @@ span.bold{
 #error-text{
   display: none;
   color: #930a00;
+  float: left;
+  clear: both;
 }

@@ -10,18 +10,18 @@
 </head>
 <body>
 	<div class="header"><p>MidwestJS Example</p></div>
-	<div class="instructions">
-		<p>Enter in up to 3 Marvel character names:</p>
-		<input type="text" id="name0" onblur="processNames()"></input>
-		<input type="text" id="name1" onblur="processNames()"></input>
-		<input type="text" id="name2" onblur="processNames()"></input>
-		<p id="processing-text">Loading...</p>
-		<p id="error-text"></p>
-	</div> 
-	<div class="main"> 
-		<div class="mainContainer">
-			<table id="heroTable" border="1"></table>
-		</div>
+	<div class="main">	
+			<div class="instructions">
+				<p>Enter in up to 3 Marvel character names:</p>
+				<input type="text" id="name0" onblur="processNames()"></input>
+				<input type="text" id="name1" onblur="processNames()"></input>
+				<input type="text" id="name2" onblur="processNames()"></input>
+				<p id="processing-text">Loading...</p>
+				<p id="error-text"></p>
+			</div> 
+			<div class="content">
+				<table id="heroTable" border="1"></table>
+			</div>
 	</div>
 	<div class="footer"></div>
 </body>
