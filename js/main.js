@@ -14,9 +14,16 @@ function processNames(){
 	Promise.all(heroes).then(function(heroesData){
 		lastRanNames = heroNames;
 		if(heroesData.length > 0){
-			console.log(heroesData);
 			getComicsInfo(heroesData).then(function(comicsData){
-				console.log(comicsData.results);
+				var heroTable = d3.select("#heroTable");
+
+				var row = heroTable.selectAll("tr")
+					.data(heroesData)
+					.enter()
+					.append("tr");
+
+				row.append("td").text(function(d){return d.name + " (" + d.comics.available + ")";});
+				row.append("td").text(function(d){return d.description;});
 			});
 		}
 	}).catch(function(){
@@ -68,7 +75,7 @@ function getComicsInfo(names){
 				reject(null);
 			}
 			else if (data.data === null || data.data.total === 0){
-				setError("Error: No results returned from that character pair.");
+				setError("Error: No results returned from that character set.");
 				reject(null);
 			}
 			else {
