@@ -88,6 +88,11 @@ span.bold{
   font-weight: bold;
 }
 
+#processing-text{
+  display: none;
+  color: #696969;
+}
+
 #error-text{
   display: none;
   color: #930a00;

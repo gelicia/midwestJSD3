@@ -2,33 +2,40 @@ var lastRanNames = [];
 
 function processNames(){
 	document.getElementById("error-text").style.display = "none";
+	document.getElementById("processing-text").style.display = "none";
 	var heroNames = getNames();
 
-	if (heroNames.toString() == lastRanNames.toString()) { return; }
-	
-	var heroes = [];
-	for (var i = 0; i < heroNames.length; i++) {
-		heroes.push(getCharacterInfo(heroNames[i]));
-	}
-
-	Promise.all(heroes).then(function(heroesData){
-		lastRanNames = heroNames;
-		if(heroesData.length > 0){
-			getComicsInfo(heroesData).then(function(comicsData){
-				var heroTable = d3.select("#heroTable");
-
-				var row = heroTable.selectAll("tr")
-					.data(heroesData)
-					.enter()
-					.append("tr");
-
-				row.append("td").text(function(d){return d.name + " (" + d.comics.available + ")";});
-				row.append("td").text(function(d){return d.description;});
-			});
+	if (heroNames.toString() !== lastRanNames.toString()) { 
+		document.getElementById("processing-text").style.display = "block";
+		
+		var heroes = [];
+		for (var i = 0; i < heroNames.length; i++) {
+			heroes.push(getCharacterInfo(heroNames[i]));
 		}
-	}).catch(function(){
-		//don't do anything - I could do the errors this way if I cared about more than one error at a time :) 
-	});
+
+		Promise.all(heroes).then(function(heroesData){
+			lastRanNames = heroNames; 
+			if(heroesData.length > 0){
+				getComicsInfo(heroesData).then(function(comicsData){
+					document.getElementById("processing-text").style.display = "none";
+
+					var heroTable = d3.select("#heroTable");
+
+					var row = heroTable.selectAll("tr")
+						.data(heroesData)
+						.enter()
+						.append("tr");
+
+					row.append("td").text(function(d){return d.name + " (" + d.comics.available + ")";});
+					row.append("td").text(function(d){return d.description;});
+
+				});
+			}
+		}).catch(function(){
+			//don't do anything - I could do the errors this way if I cared about more than one error at a time :) 
+			document.getElementById("processing-text").style.display = "none";
+		});
+	}
 }
 
 function getNames(){
