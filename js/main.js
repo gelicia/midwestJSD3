@@ -19,16 +19,36 @@ function processNames(){
 				getComicsInfo(heroesData).then(function(comicsData){
 					document.getElementById("processing-text").style.display = "none";
 
-					var heroTable = d3.select("#heroTable");
+					var rowBreak = Math.ceil(Math.sqrt(heroesData.length));
+					//radius has the stroke built in so I don't have to add them in every place radius is used for size/positioning
+					var circleDisplay = {radius: 103, strokeSize: 3};
+					var svgSize = {width: (circleDisplay.radius*2) + ((rowBreak-1) * circleDisplay.radius), height: 500};
 
-					var row = heroTable.selectAll("tr")
-						.data(heroesData)
-						.enter()
-						.append("tr");
+					var svg = d3.select("svg#mainViz").attr({
+						height: svgSize.height,
+						width: svgSize.width
+					});
 
-					row.append("td").text(function(d){return d.name + " (" + d.comics.available + ")";});
-					row.append("td").text(function(d){return d.description;});
+					var heroCircles = svg.selectAll("circle").data(heroesData);
+					var colorScale = d3.scale.category10();
 
+					//enter
+					heroCircles.enter().append("circle").attr({opacity: 0});
+
+					//update
+					heroCircles.attr({
+						cx: function(d,i){return (i == 2 ? circleDisplay.radius/2 : 0) +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+						cy: function(d,i){return (circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
+						r: circleDisplay.radius-circleDisplay.strokeSize,
+						"opacity": 1,
+						"fill-opacity": 0.7,
+						stroke: "black",
+						"stroke-width": circleDisplay.strokeSize,
+						fill: function(d,i){return colorScale(i);}
+					});
+
+					//exit
+					heroCircles.exit().attr({'opacity':0}).remove();
 				});
 			}
 		}).catch(function(){
