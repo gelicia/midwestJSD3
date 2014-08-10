@@ -36,7 +36,7 @@ function processNames(){
 					heroCircles.enter().append("circle").attr({opacity: 0});
 
 					//update
-					heroCircles.attr({
+					heroCircles.transition().duration(500).attr({
 						cx: function(d,i){return (i == 2 ? circleDisplay.radius/2 : 0) +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
 						cy: function(d,i){return (circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
 						r: circleDisplay.radius-circleDisplay.strokeSize,
@@ -48,7 +48,7 @@ function processNames(){
 					});
 
 					//exit
-					heroCircles.exit().attr({'opacity':0}).remove();
+					heroCircles.exit().transition().duration(500).attr({'opacity':0}).remove();
 				});
 			}
 		}).catch(function(){
