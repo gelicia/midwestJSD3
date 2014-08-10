@@ -29,7 +29,7 @@ function processNames(){
 						width: svgSize.width
 					});
 
-					var heroCircles = svg.selectAll("circle").data(heroesData);
+					var heroCircles = svg.selectAll("circle").data(heroesData, function(d){return d.id;});
 					var colorScale = d3.scale.category10();
 
 					//enter
