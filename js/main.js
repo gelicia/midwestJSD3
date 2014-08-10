@@ -18,6 +18,8 @@ function processNames(){
 			if(heroesData.length > 0){
 				getComicsInfo(heroesData).then(function(comicsData){
 					document.getElementById("processing-text").style.display = "none";
+					
+					d3.select("text.combTotal").transition().duration(500).attr({'opacity':0}).remove();
 
 					var rowBreak = Math.ceil(Math.sqrt(heroesData.length));
 					//radius has the stroke built in so I don't have to add them in every place radius is used for size/positioning
@@ -61,6 +63,19 @@ function processNames(){
 					//exit
 					heroCircles.exit().transition().duration(500).attr({'opacity':0}).remove();
 					heroText.exit().transition().duration(500).attr({'opacity':0}).remove();
+
+					//not binding this because there will only be one text object ever appended
+					if (heroesData.length > 1){
+						svg.append("text").attr({opacity: 0}).transition().duration(500).attr({
+							class: "combTotal",
+							opacity: 1,
+							'font-size': 30,
+							'text-anchor': 'middle',
+							x: function(d,i){return circleDisplay.radius/2 +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+							y: function(d,i){return (heroesData.length == 3 ? circleDisplay.radius/2 : 0 )+(circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
+							fill: 'black'
+						}).text(comicsData.total);
+					}	
 				});
 			}
 		}).catch(function(){
