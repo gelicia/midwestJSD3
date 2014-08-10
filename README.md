@@ -11,5 +11,6 @@ To get this to work for yourself
 
 3. If you want to use the interactive API documentation, be sure to add marvel to a the list of expected domains.
 
+4. Edit js/key.js to have your public key from your Marvel developer account
 
 One thing with usage - there are two ways to find characters, both by exact match and by starts with. Most popular characters have a few derivatives, so I couldn't do a starts with search without having some sort of "Select which character you mean" thing and I didn't want to spend time messing with that. Maybe you do? 
