@@ -86,7 +86,19 @@ function processNames(){
 
 					row.enter().append("tr");
 
-					row.append("td").text(function(d){return d.title;});
+					row.append("td").html(function(d){
+						var comicText = d.title;
+
+						if(d.urls.length > 0) {
+							for (var i = 0; i < d.urls.length; i++) {
+								if(d.urls[i].type == "detail"){
+									comicText = "<a href='" + d.urls[i].url + "' target='_blank'>" + d.title + "</a>";
+								}
+							}
+						}
+
+						return comicText;
+					});
 					
 				});
 			}
@@ -151,6 +163,7 @@ function getComicsInfo(names){
 				else{
 					document.getElementById("over20Results").style.display="none";
 				}
+				console.log(data.data);
 				resolve(data.data);
 			}
 		});
