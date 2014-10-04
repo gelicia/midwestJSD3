@@ -18,13 +18,14 @@ function processNames(){
 			if(heroesData.length > 0){
 				getComicsInfo(heroesData).then(function(comicsData){
 					document.getElementById("processing-text").style.display = "none";
-					
 					d3.select("text.combTotal").transition().duration(500).attr({'opacity':0}).remove();
 
 					var rowBreak = Math.ceil(Math.sqrt(heroesData.length));
 					//radius has the stroke built in so I don't have to add them in every place radius is used for size/positioning
 					var circleDisplay = {radius: 103, strokeSize: 3};
-					var svgSize = {width: (circleDisplay.radius*2) + ((rowBreak-1) * circleDisplay.radius), height: 500};
+					var columnWidth = document.getElementsByClassName("col1")[0].offsetWidth;
+					//var svgSize = {width: (circleDisplay.radius*2) + ((rowBreak-1) * circleDisplay.radius), height: 310};
+					var svgSize = {width: columnWidth, height: 310};
 
 					var svg = d3.select("svg#mainViz").attr({
 						height: svgSize.height,
@@ -41,7 +42,7 @@ function processNames(){
 
 					//update
 					heroCircles.transition().duration(500).attr({
-						cx: function(d,i){return (i == 2 ? circleDisplay.radius/2 : 0) +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+						cx: function(d,i){return (columnWidth/2)+(i == 2 ? circleDisplay.radius/2 : 0) + (circleDisplay.radius * (i % rowBreak));},
 						cy: function(d,i){return (circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
 						r: circleDisplay.radius-circleDisplay.strokeSize,
 						"opacity": 1,
@@ -55,7 +56,7 @@ function processNames(){
 						class: "heroName",
 						opacity: 0.75,
 						'text-anchor': 'middle',
-						x: function(d,i){return (i == 2 ? circleDisplay.radius/2 : 0) +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+						x: function(d,i){return (columnWidth/2)+(i == 2 ? circleDisplay.radius/2 : 0) + (circleDisplay.radius * (i % rowBreak));},
 						y: function(d,i){return (circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
 						fill: 'black'//function(d,i){return colorScale(i);}
 					}).text(function(d){ return d.name + "(" + d.comics.available + ")";});
@@ -71,11 +72,22 @@ function processNames(){
 							opacity: 1,
 							'font-size': 30,
 							'text-anchor': 'middle',
-							x: function(d,i){return circleDisplay.radius/2 +  circleDisplay.radius + (circleDisplay.radius * (i % rowBreak));},
+							x: function(d,i){return (columnWidth/2)+ circleDisplay.radius/2 + (circleDisplay.radius * (i % rowBreak));},
 							y: function(d,i){return (heroesData.length == 3 ? circleDisplay.radius/2 : 0 )+(circleDisplay.radius + circleDisplay.strokeSize) + (circleDisplay.radius * (Math.floor(i / rowBreak)));},
 							fill: 'black'
 						}).text(comicsData.total);
-					}	
+					}
+
+					d3.select("#comicsTable").selectAll("tr").remove();
+
+					var comicTable = d3.select("#comicsTable");
+
+					var row = comicTable.selectAll("tr").data(comicsData.results);
+
+					row.enter().append("tr");
+
+					row.append("td").text(function(d){return d.title;});
+					
 				});
 			}
 		}).catch(function(){
@@ -133,6 +145,12 @@ function getComicsInfo(names){
 				reject(null);
 			}
 			else {
+				if(data.data.results.length == 20){
+					document.getElementById("over20Results").style.display="block";
+				}
+				else{
+					document.getElementById("over20Results").style.display="none";
+				}
 				resolve(data.data);
 			}
 		});

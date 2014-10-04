@@ -1,16 +1,16 @@
-<html>
-<head>
-	<title>MidwestJS Example</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script type = "text/javascript" src="js/key.js"></script>
-	<script type = "text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/lib/d3.min.js"></script>
-	<script type="text/javascript" src="js/lib/bluebird.js"></script>
-</head>
-<body>
-	<div class="header"><p>MidwestJS Example</p></div>
-	<div class="main">	
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>MidwestJS Example Redo</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type = "text/javascript" src="js/key.js"></script>
+		<script type = "text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/lib/d3.min.js"></script>
+		<script type="text/javascript" src="js/lib/bluebird.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			<h2>Marvel Demo</h2>
+			<p>This is an example of using the Marvel API to see how many comics intersect 2 or more characters.</p>
 			<div class="instructions">
 				<p>Enter in up to 3 Marvel character names:</p>
 				<input type="text" id="name0" onblur="processNames()"></input>
@@ -19,10 +19,20 @@
 				<p id="processing-text">Loading...</p>
 				<p id="error-text"></p>
 			</div> 
-			<div class="content">
-				<svg id="mainViz"></svg>
+		</div>
+		<div class="colmask doublepage">
+			<div class="colleft">
+				<div class="col1">
+					<svg id="mainViz"></svg>
+				</div>
+				<div class="col2">
+					<p id="over20Results">Over 20 results, showing the first 20</p>
+					<table id="comicsTable" border="1"></table>
+				</div>
 			</div>
-	</div>
-	<div class="footer"><a href="https://github.com/gelicia/midwestJSD3">Source</a> - <a href="http://gelicia.com/midwestJSD3/mwjs.pdf">Presentation (PDF)</a></div>
-</body>
+		</div>
+		<div id="footer">
+			<p>Thanks to <a href="http://matthewjamestaylor.com/blog/perfect-2-column-double-page.htm">Matthew James Taylor</a> for the CSS layout</p>
+		</div>
+	</body>
 </html>
